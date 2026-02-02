@@ -1,7 +1,7 @@
 {
   "name": "Fuel Watcher Dashboard",
   "content_in_root": false,
-  "filename": "fuel_watcher_dashboard.yaml",
+  "filename": "dashboards/fuel_watcher_dashboard.yaml",
   "render_readme": true,
   "domains": ["lovelace"],
   "country": "DE"
