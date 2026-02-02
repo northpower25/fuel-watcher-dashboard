@@ -1,35 +1,31 @@
 # Fuel Watcher Dashboard
 
-Dieses Repository enthält ein vollständiges Lovelace‑Dashboard für die Fuel‑Watcher‑Integration.
+Dieses Repository enthält ein vollständiges Lovelace‑Dashboard für die Home‑Assistant‑Integration  
+[homeassistant-fuel-watcher](https://github.com/northpower25/homeassistant-fuel-watcher).
 
 ## Features
 
-- Premium DataTables Tankhistorie  
+- Premium‑Tankhistorie mit DataTables  
 - Popup‑Formulare für Tankvorgänge  
 - Preisentwicklung  
 - Verbrauchstrends  
-- Navigation  
-- Statusübersicht  
-- Aktionen  
+- Navigation zur empfohlenen Tankstelle  
+- Statusübersicht & Aktionen  
 
-## Vorraussetzung
+## Installation über HACS
 
-- Fuel-Watcher Integration installiert -> https://github.com/northpower25/homeassistant-fuel-watcher
-- custom:datatables-card installiert
-- browser_mod installiert (für Popups)
-
-## Installation (HACS)
-
-
-1. HACS → Frontend → Benutzerdefinierte Repositories  
+1. In HACS → Frontend → „Custom repositories“  
 2. Repository hinzufügen:  
-   `https://github.com/northpower25/fuel-watcher-dashboard`
-3. Typ: **Dashboard**  
-4. Installieren  
-5. Dashboard importieren unter:  
-   Einstellungen → Dashboards → Dashboard hinzufügen → „Rohkonfiguration importieren“
+   `https://github.com/northpower25/fuel-watcher-dashboard`  
+   Typ: **Dashboard**
+3. Repository installieren
+4. In Home Assistant:  
+   **Einstellungen → Dashboards → Dashboard hinzufügen → Rohkonfiguration importieren**
+5. Inhalt aus `dashboards/fuel_watcher_dashboard.yaml` einfügen oder Datei direkt auswählen (je nach Setup).
 
-## Datei
+## Voraussetzungen
 
-Das Dashboard befindet sich unter:
-dashboards/fuel_watcher_dashboard.yaml
+- Integration: `homeassistant-fuel-watcher`  
+- Optional:  
+  - `browser_mod` (für Popup‑Dialoge)  
+  - `custom:datatables-card` (für die Tankhistorie‑Tabelle)
