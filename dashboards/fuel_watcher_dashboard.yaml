@@ -1,6 +1,6 @@
-title: Fuel Watcher
+title: Fuel Watcher Dashboard
 views:
-  - title: Fuel Watcher Cockpit
+  - title: Fuel Watcher
     path: fuel_watcher
     icon: mdi:gas-station
     cards:
@@ -18,17 +18,17 @@ views:
                 name: Entfernung
               - entity: sensor.fuel_watcher_range_km
                 name: Reichweite (km)
-              - entity: sensor.fuel_watcher_tage_reichweite
+              - entity: sensor.fuel_watcher_days_left
                 name: Reichweite (Tage)
-              - entity: sensor.fuel_watcher_entscheidung
+              - entity: sensor.fuel_watcher_decision
                 name: Entscheidung
-              - entity: sensor.fuel_watcher_begruendung
+              - entity: sensor.fuel_watcher_reason
                 name: Begründung
 
       # Bereich 2: Tankhistorie (DataTables)
       - type: custom:datatables-card
         title: Tankhistorie
-        entity: sensor.fuel_watcher_tankhistorie
+        entity: sensor.fuel_watcher_tank_history
         columns:
           - title: '📅 Datum'
             field: ts
@@ -48,35 +48,8 @@ views:
             field: savings
           - title: 'Quelle'
             field: source
-          - title: 'Aktionen'
-            type: buttons
-            buttons:
-              - icon: mdi:pencil
-                name: Bearbeiten
-                tap_action:
-                  action: fire-dom-event
-                  browser_mod:
-                    command: popup
-                    title: Tankvorgang bearbeiten
-                    card:
-                      type: entities
-                      entities:
-                        - type: custom:template-entity-row
-                          name: Preis/L
-                          entity: sensor.fuel_watcher
-                          state: "{{ row.price_per_liter }}"
-                        # hier würdest du mit template-card + input_number/input_text arbeiten
-                        # und beim Speichern den Service fuel_watcher.update_tank_event aufrufen
-              - icon: mdi:delete
-                name: Löschen
-                tap_action:
-                  action: call-service
-                  service: fuel_watcher.delete_tank_event
-                  service_data:
-                    config_entry_id: "<DEIN_ENTRY_ID>"
-                    event_id: "{{ row.id }}"
 
-      # Bereich 3: Preisentwicklung (Beispiel)
+      # Bereich 3: Preisentwicklung
       - type: history-graph
         title: Preisentwicklung
         hours_to_show: 720
@@ -87,44 +60,18 @@ views:
       - type: map
         title: Empfohlene Tankstelle
         entities:
-          - entity: sensor.fuel_watcher_location
+          - entity: sensor.fuel_watcher_station_location
         default_zoom: 13
 
       # Bereich 5: Aktionen
       - type: vertical-stack
         cards:
           - type: button
-            name: Tankvorgang erfassen
-            icon: mdi:gas-station
+            name: Testnachricht senden
+            icon: mdi:message-text
             tap_action:
-              action: fire-dom-event
-              browser_mod:
-                command: popup
-                title: Tankvorgang erfassen
-                card:
-                  type: entities
-                  entities:
-                    - entity: input_number.tank_price_per_liter
-                      name: Preis pro Liter
-                    - entity: input_number.tank_liters
-                      name: Liter
-                    - entity: input_number.tank_total_cost
-                      name: Gesamtkosten
-                    - entity: input_number.tank_odometer
-                      name: Kilometerstand
-                    - type: button
-                      name: Speichern
-                      icon: mdi:check
-                      tap_action:
-                        action: call-service
-                        service: fuel_watcher.add_tank_event
-                        service_data:
-                          config_entry_id: "<DEIN_ENTRY_ID>"
-                          price_per_liter: "{{ states('input_number.tank_price_per_liter') | float }}"
-                          liters: "{{ states('input_number.tank_liters') | float }}"
-                          total_cost: "{{ states('input_number.tank_total_cost') | float }}"
-                          odometer: "{{ states('input_number.tank_odometer') | float }}"
-                          source: "manual"
+              action: call-service
+              service: fuel_watcher.send_test_notification
 
           - type: button
             name: Tankhistorie löschen
