@@ -14,7 +14,10 @@ Dieses Repository enthält ein vollständiges Lovelace‑Dashboard für die Fuel
 
 ## Vorraussetzung
 
-Installierte Fuel-Watcher Integration
+Installierte Fuel-Watcher Integration -> https://github.com/northpower25/homeassistant-fuel-watcher
+Voraussetzung:
+- custom:datatables-card installiert
+- browser_mod installiert (für Popups)
 
 ## Installation (HACS)
 
